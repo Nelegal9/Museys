@@ -9,9 +9,9 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alekhin.museys.R;
-import com.alekhin.museys.room.Museum;
 import com.alekhin.museys.databinding.CardMuseumBinding;
+import com.alekhin.museys.room.Museum;
+import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,10 +25,11 @@ public class MuseumListAdapter extends RecyclerView.Adapter<MuseumListAdapter.Mu
         private MuseumListViewHolder(@NonNull CardMuseumBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
         }
 
         private void bind(Museum museum) {
-            binding.museumImage.setImageResource(R.drawable.logo);
+            Picasso.get().load(museum.museumImage).resize(384, 384).centerCrop().into(binding.museumImage);
             binding.museumTitle.setText(museum.museumTitle);
             binding.museumCard.setOnClickListener(v -> {
                 NavDirections action = MuseumListFragmentDirections.actionMuseumListFragmentToMuseumFragment(museum);

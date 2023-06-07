@@ -1,5 +1,6 @@
 package com.alekhin.museys.room;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -11,15 +12,16 @@ import androidx.room.PrimaryKey;
 public class Museum implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     public int id;
-    //public Bitmap museumImage;
+    public String museumImage;
     public String museumTitle;
     public String museumDescription;
     public String museumAddress;
     public String museumNumber;
     public String museumSite;
 
-    public Museum(int id, String museumTitle, String museumDescription, String museumAddress, String museumNumber, String museumSite) {
+    public Museum(int id, String museumImage, String museumTitle, String museumDescription, String museumAddress, String museumNumber, String museumSite) {
         this.id = id;
+        this.museumImage = museumImage;
         this.museumTitle = museumTitle;
         this.museumDescription = museumDescription;
         this.museumAddress = museumAddress;
@@ -27,8 +29,10 @@ public class Museum implements Parcelable {
         this.museumSite = museumSite;
     }
 
+
     protected Museum(Parcel in) {
         id = in.readInt();
+        museumImage = in.readString();
         museumTitle = in.readString();
         museumDescription = in.readString();
         museumAddress = in.readString();
@@ -56,6 +60,7 @@ public class Museum implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(id);
+        dest.writeString(museumImage);
         dest.writeString(museumTitle);
         dest.writeString(museumDescription);
         dest.writeString(museumAddress);

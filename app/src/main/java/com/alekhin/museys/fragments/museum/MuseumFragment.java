@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.alekhin.museys.R;
 import com.alekhin.museys.databinding.FragmentMuseumBinding;
 import com.alekhin.museys.room.Museum;
+import com.squareup.picasso.Picasso;
 
 public class MuseumFragment extends Fragment {
     private Museum museum;
@@ -23,7 +25,7 @@ public class MuseumFragment extends Fragment {
 
         if (getArguments() != null) museum = MuseumFragmentArgs.fromBundle(getArguments()).getCurrentMuseum();
 
-        binding.museumImage.setImageResource(R.drawable.logo);
+        Picasso.get().load(museum.museumImage).into(binding.museumImage);
         binding.museumTitle.setText(museum.museumTitle);
         binding.museumDescription.setText(museum.museumDescription);
         binding.museumAddress.setText(museum.museumAddress);
