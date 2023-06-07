@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.alekhin.museys.R;
 import com.alekhin.museys.databinding.FragmentMuseumBinding;
 import com.alekhin.museys.room.Museum;
 import com.squareup.picasso.Picasso;
@@ -25,7 +24,7 @@ public class MuseumFragment extends Fragment {
 
         if (getArguments() != null) museum = MuseumFragmentArgs.fromBundle(getArguments()).getCurrentMuseum();
 
-        Picasso.get().load(museum.museumImage).into(binding.museumImage);
+        Picasso.get().load(museum.museumImage).resize(256, 256).centerCrop().into(binding.museumImage);
         binding.museumTitle.setText(museum.museumTitle);
         binding.museumDescription.setText(museum.museumDescription);
         binding.museumAddress.setText(museum.museumAddress);
@@ -40,9 +39,13 @@ public class MuseumFragment extends Fragment {
     }
 
     private void getAddress(View v) {
-        //Intent addressIntent = new Intent(Intent.ACTION_VIEW);
-        //addressIntent.setData(Uri.parse(museum.museumAddress));
-        //startActivity(addressIntent);
+        Intent addressIntent = new Intent(Intent.ACTION_VIEW);
+        addressIntent.setData(Uri.parse("https://www.google.com/maps/search/?api=1&query=" + museum.museumAddress));
+        addressIntent.setPackage("com.google.android.apps.maps");
+
+        if (addressIntent.resolveActivity(requireActivity().getPackageManager()) != null) startActivity(addressIntent);
+
+        Toast.makeText(requireContext(), "ADDRESS IS: " + museum.museumAddress + " PACKAGE IS: " + addressIntent.getPackage(), Toast.LENGTH_LONG).show();
     }
 
     private void makeCall(View v) {

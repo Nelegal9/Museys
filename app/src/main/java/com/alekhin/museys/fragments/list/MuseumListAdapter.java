@@ -29,7 +29,7 @@ public class MuseumListAdapter extends RecyclerView.Adapter<MuseumListAdapter.Mu
         }
 
         private void bind(Museum museum) {
-            Picasso.get().load(museum.museumImage).resize(384, 384).centerCrop().into(binding.museumImage);
+            Picasso.get().load(museum.museumImage).resize(256, 256).centerCrop().into(binding.museumImage);
             binding.museumTitle.setText(museum.museumTitle);
             binding.museumCard.setOnClickListener(v -> {
                 NavDirections action = MuseumListFragmentDirections.actionMuseumListFragmentToMuseumFragment(museum);
